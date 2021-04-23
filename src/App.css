@@ -27,6 +27,16 @@
     text-align: center;
 }
 
+.session-type {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.session-time {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
 .reload{
     transform: rotate(0deg);
     transition: transform 0.3s linear;
@@ -34,5 +44,4 @@
 
 .reload:hover {
     transform: rotate(180deg);
-    /* transition: transform 1s linear; */
 }

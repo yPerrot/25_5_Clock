@@ -100,14 +100,14 @@ class App extends React.Component  {
 	}
 
 	decreaseBreak() {
-		if (this.state.breakDuration == 1) return
+		if (this.state.breakDuration === 1) return
 		this.setState({
 			breakDuration: this.state.breakDuration - 1
 		})
 	}
 
 	decreaseSession() {
-		if (this.state.sessionDuration == 1) return
+		if (this.state.sessionDuration === 1) return
 		if (this.state.didStart) {
 			this.setState({
 				sessionDuration: this.state.sessionDuration - 1
