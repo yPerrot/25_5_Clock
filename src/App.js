@@ -11,15 +11,23 @@ class App extends React.Component  {
 		this.state = {
 			isSession: true,
 			isRunning: false,
+			didStart: false,
 
-			breakDuration: 1,
-			sessionDuration: 1,
+			breakDuration: 5,
+			sessionDuration: 25,
 
-			runningMin: 1,
+			runningMin: 25,
 			runningSec: 0
 		}
 		this.switch = this.switch.bind(this)
 		this.reload = this.reload.bind(this)
+
+		this.increaseBreak = this.increaseBreak.bind(this)
+		this.decreaseBreak = this.decreaseBreak.bind(this) 
+		
+		this.increaseSession = this.increaseSession.bind(this) 
+		this.decreaseSession = this.decreaseSession.bind(this) 
+
 
 		this.audio = new Audio("./sound.wav")
 	}
@@ -57,7 +65,8 @@ class App extends React.Component  {
 
 	switch() {
 		this.setState({
-			isRunning: !this.state.isRunning
+			isRunning: !this.state.isRunning,
+			didStart: true
 		})
 	}
 
@@ -65,9 +74,50 @@ class App extends React.Component  {
 		this.setState({
 			isSession: true,
 			isRunning: false,
+			didStart: false,
 			runningMin: this.state.sessionDuration,
 			runningSec: 0
 		})
+	}
+
+	increaseBreak() {
+		this.setState({
+			breakDuration: this.state.breakDuration + 1
+		})
+	}
+
+	increaseSession() {
+		if (this.state.didStart) {
+			this.setState({
+				sessionDuration: this.state.sessionDuration + 1
+			})
+		} else {
+			this.setState({
+				sessionDuration: this.state.sessionDuration + 1,
+				runningMin: this.state.sessionDuration + 1,
+			})
+		}
+	}
+
+	decreaseBreak() {
+		if (this.state.breakDuration == 1) return
+		this.setState({
+			breakDuration: this.state.breakDuration - 1
+		})
+	}
+
+	decreaseSession() {
+		if (this.state.sessionDuration == 1) return
+		if (this.state.didStart) {
+			this.setState({
+				sessionDuration: this.state.sessionDuration - 1
+			})
+		} else {
+			this.setState({
+				sessionDuration: this.state.sessionDuration - 1,
+				runningMin: this.state.sessionDuration - 1,
+			})
+		}
 	}
 
 	render() {
@@ -78,8 +128,8 @@ class App extends React.Component  {
 			<div className="App">
 				<h1>25 + 5 Clock</h1>
 				<div className="time-controler">
-					<Controler name="Session Length" value={sessionDuration}/>
-					<Controler name="Break Length" value={breakDuration}/>
+					<Controler name="Session Length" value={sessionDuration} increase={this.increaseSession} decrease={this.decreaseSession}/>
+					<Controler name="Break Length" value={breakDuration} increase={this.increaseBreak} decrease={this.decreaseBreak}/>
 				</div>
 				<div className="timer">
 					<p className="session-type">{isSession ? "Session" : "Break"}</p>
