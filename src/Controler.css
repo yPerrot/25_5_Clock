@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    width: 15rem;
     flex-direction: column;
 }
 
@@ -12,16 +12,22 @@
     font-weight: 600;
 }
 
-.controler-btn {
+.controler-btn-up, .controler-btn-down {
+    position: relative;
     border: 0;
     background-color: transparent;
     color: black;
     cursor: pointer;
+
+    transition: 0.3s;
 }
 
-.controler-btn:active {
-    color: white;
-    text-shadow: 0 0 3px #000;
+.controler-btn-up:active {
+    top: -1px;
+}
+
+.controler-btn-down:active {
+    top: 2px;
 }
 
 .controler-value {
